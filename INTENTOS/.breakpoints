@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.ps1": [
+      {
+        "id": "2cc59c11-413a-40b5-a450-ab56b1934ffa",
+        "line": 1,
+        "version": 455,
+        "index": 2
+      }
+    ],
+    "main.py": [
+      {
+        "id": "57ca09e8-3e3b-4e4a-90ec-7b0857cf082e",
+        "line": 4,
+        "version": 476,
+        "index": 66
+      }
+    ]
+  }
+}
