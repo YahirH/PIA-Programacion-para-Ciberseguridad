@@ -1,9 +1,0 @@
-  ++Modo de uso:
-  +Seleccionar opción (A,B)
-    +Opción A (WebScrapping, Metadatos, Cifrado, Correos)
-      +Sintaxis: script -op A -url 'URL'
-
-    +Opción B (Escaneo de Puertos)
-      +Sintaxis: script -op B -ip -port
-      +Por default escanea puerto 80
-      +Colocar un puerto o rango de puertos (80,8080,105)
