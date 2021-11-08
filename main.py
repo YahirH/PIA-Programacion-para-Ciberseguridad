@@ -27,7 +27,6 @@ def main():
     parser.add_argument("-rec","--receiver", dest='rec', type=str, help='Destinatario del correo de los Reportes obtenidos')
     parser.add_argument("-em","--email", dest='email', type=str, help="Enter email para analizar")
     parser.add_argument("-k","--key", dest='key',type=str, help="APIKey de tu cuenta")
-    parser.add_argument("-t","--texto", dest='texto',type=str, help="Texto a codificar o decodificar")
     args=parser.parse_args()
     x=args.op
     
