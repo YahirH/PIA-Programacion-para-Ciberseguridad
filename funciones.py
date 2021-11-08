@@ -1,14 +1,18 @@
-import sys, subprocess, pkg_resources
+import sys
+import subprocess
+import pkg_resources
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import logging
-import os, sys
+import os
+import sys
 import requests
 from lxml import html
 from bs4 import BeautifulSoup
 from PIL.ExifTags import TAGS, GPSTAGS
 from PIL import Image
 from decimal import Context
-import smtplib, ssl
+import smtplib
+import ssl
 import getpass
 import pathlib
 import socket
@@ -21,7 +25,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-#Formato de loggins
+# Formato de loggins
 log_format = (
     '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s')
 
@@ -31,7 +35,7 @@ logging.basicConfig(
     filename=('app.log'))
 
 
-#Uso de pireq
+# Uso de pireq
 
 def pireq():
     logging.info("Se busca si esta instalado pipreqs")
@@ -42,10 +46,11 @@ def pireq():
         if missing:
             python = sys.executable
             subprocess.check_call(
-            [python, "-m", "pip", "install", *required], stdout=subprocess.DEVNULL
+                [python, "-m", "pip", "install", *required],
+                stdout=subprocess.DEVNULL
             )
             subprocess.check_call(
-            [python, '-m', "pip", "install", "-r", "requirements.txt"]
+                [python, '-m', "pip", "install", "-r", "requirements.txt"]
             )
             logging.info("Se instalo pipreqs")
         else:
@@ -54,9 +59,13 @@ def pireq():
             logging.info("Pipreqs ya estaba instalado")
     except:
         print("Modulo pipreqs no encontrado")
-        logging.debug("No se encontró pipreqs, pero ya es posible volver a correr el codigo ya que se instaló automáticamente" )
+        logging.debug(
+            "No se encontró pipreqs, pero ya es posible volver a correr "
+            "el codigo ya que se instaló automáticamente")
 
-#WebScrapping
+# WebScrapping
+
+
 class Scraping:
     def scrapingImages(self, url):
         print("\nObteniendo imagenes de la url:" + url)
@@ -75,7 +84,7 @@ class Scraping:
             logging.info("Se creó un folder para imagenes")
 
             for image in images:
-                if image.startswith("http") == False:
+                if image.startswith("http") is False:
                     download = url + image
                 else:
                     download = image
@@ -84,7 +93,8 @@ class Scraping:
                 r = requests.get(download)
                 f = open("images/%s" % download.split("/")[-1], "wb")
                 f.write(r.content)
-                logging.info("Se descargo imagen con dirreccion al folder creado")
+                logging.info(
+                    "Se descargo imagen con dirreccion al folder creado")
                 f.close()
 
         except Exception as e:
@@ -111,7 +121,7 @@ class Scraping:
             logging.info("Se creo un folder para los pdfs")
 
             for pdf in pdfs:
-                if pdf.startswith("http") == False:
+                if pdf.startswith("http") is False:
                     download = url + pdf
                 else:
                     download = pdf
@@ -132,8 +142,8 @@ class Scraping:
 
 
 # bloque de obtencion de metadata
-#Formato a Extración de Datos
-def decode_gps_info(exif): #exif = 
+# Formato a Extración de Datos
+def decode_gps_info(exif):  # exif =
     gpsinfo = {}
     if "GPSInfo" in exif:
         # Parse geo references.
@@ -157,7 +167,8 @@ def decode_gps_info(exif): #exif =
         input()
 
 
-def get_exif_metadata(image_path): #image_path ruta de la imagen con nombre /carpeta/imagen.jpg
+# image_path ruta de la imagen con nombre /carpeta/imagen.jpg
+def get_exif_metadata(image_path):
     ret = {}
     image = Image.open(image_path)
     if hasattr(image, "_getexif"):
@@ -172,7 +183,8 @@ def get_exif_metadata(image_path): #image_path ruta de la imagen con nombre /car
 
 def printMeta():
     informe = open("Reporte_Imagenes.txt", "w+")
-    logging.info("Se creo un informe con los metadatos obtenidos de las imagenes")
+    logging.info(
+        "Se creo un informe con los metadatos obtenidos de las imagenes")
     ruta = "images"
 
     os.chdir(ruta)
@@ -184,26 +196,32 @@ def printMeta():
                 exifData = {}
                 exif = get_exif_metadata(name)
                 for metadata in exif:
-                    informe.write("[+] %s - Value: %s " % (metadata, exif[metadata]))
+                    informe.write("[+] %s - Value: %s " %
+                                  (metadata, exif[metadata]))
                     informe.write("\n")
 
             except:
-                import sys, traceback
+                import sys
+                import traceback
                 traceback.print_exc(file=sys.stdout)
             informe.write("\n\n")
     informe.close()
-    print("La obtencion de metadatos ha sido exitosa \n listos en archivo Reporte.txt")
+    print("La obtencion de metadatos ha sido exitosa\n")
+    print("listos en archivo Reporte.txt")
+# PENDIENTE MetadataPDF
 
-#PENDIENTE MetadataPDF
+
 def printPDF():
     os.chdir(pathlib.Path(__file__).parent.absolute())
     Informe = open("Reporte_PDFs.txt", "w+")
-    logging.info("Se creo un informe con los metadatos obtenidos de las imagenes")
+    logging.info(
+        "Se creo un informe con los metadatos obtenidos de las imagenes")
     for dirpath, dirs, files in os.walk(".", topdown=False):
         for name in files:
             ext = name.lower().rsplit(".", 1)[-1]  # archivo.nombre.algo.pdf
             if ext in ["pdf"]:
-                pdfFile = PdfFileReader(open(dirpath + os.path.sep + name, "rb"))
+                pdfFile = PdfFileReader(
+                    open(dirpath + os.path.sep + name, "rb"))
 
                 docInfo = pdfFile.documentInfo
                 Informe.write("Archivo: " + name.lower())
@@ -211,7 +229,8 @@ def printPDF():
                 Informe.write(
                     "[+] Cantidad de paginas: " + str(pdfFile.numPages) + "\n"
                 )
-                Informe.write("[+] Encriptado: " + str(pdfFile.isEncrypted) + "\n")
+                Informe.write("[+] Encriptado: " +
+                              str(pdfFile.isEncrypted) + "\n")
                 for metaItem in docInfo:
                     Informe.write(
                         "[+] " + str(metaItem) + ": " + str(docInfo[metaItem])
@@ -220,11 +239,15 @@ def printPDF():
             Informe.write("\n\n")
     Informe.close()
 
+
 def encode():
     os.chdir(pathlib.Path(__file__).parent.absolute())
     base64.encode(
-        open("Reporte_Imagenes.txt", "rb"), open("ReporteB64_Imagenes.txt", "wb"))
-    base64.encode(open("Reporte_PDFs.txt", "rb"), open("ReporteB64_PDFs.txt", "wb"))
+        open("Reporte_Imagenes.txt", "rb"),
+        open("ReporteB64_Imagenes.txt", "wb"))
+    base64.encode(open("Reporte_PDFs.txt", "rb"),
+                  open("ReporteB64_PDFs.txt", "wb"))
+
 
 def envioCorreos(rec):
     print("Se hará un envio de correo con los reportes obtenidos")
@@ -247,7 +270,8 @@ def envioCorreos(rec):
         adjunto = MIMEBase("application", "octect-stream")
         adjunto.set_payload(open("ReporteB64_Imagenes.txt", "rb").read())
         adjunto.add_header(
-            "content-Disposition", 'attachment; filename="Reporte_Imagenes.txt"'
+            "content-Disposition",
+            'attachment; filename="Reporte_Imagenes.txt"'
         )
         msg.attach(adjunto)
 
@@ -272,31 +296,28 @@ def envioCorreos(rec):
         print("Archivo Reporte_imagenes.txt no encontrado")
         logging.info("No se encontraron los reportes para el envío")
 
+
 def APImail(email, key):
     logging.info("Se hará uso de una Api de correos")
     url = "https://mailcheck.p.rapidapi.com/"
-    querystring = {"disable_test_connection":"true","domain":email}
+    querystring = {"disable_test_connection": "true", "domain": email}
     headers = {
         'x-rapidapi-host': "mailcheck.p.rapidapi.com",
         'x-rapidapi-key': key
-        }
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    }
+    response = requests.request(
+        "GET", url, headers=headers, params=querystring)
     print(response.text)
+
 
 def Fdqn():
     logging.info("Se buscará el nombre de dominio completo del equipo")
     fqdn = socket.getfqdn()
-    print("Fully qualified domain name of this computer is:");
+    print("Fully qualified domain name of this computer is:")
     print(fqdn)
-    
+
+
 def ReglasPS():
     fpath = Path("powershellpia.ps1").absolute()
     p = subprocess.Popen(["powershell.exe", fpath], stdout=sys.stdout)
     print(fpath)
-    
-
-
-
-
-    
-    
