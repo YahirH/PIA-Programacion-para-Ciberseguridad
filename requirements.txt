@@ -10,8 +10,8 @@ PyPDF2==1.26.0
 logging
 os
 sys
-requests
-bs4 
+requests==2.26.0
+bs4==0.0.1
 decimal
 smtplib
 getpass
