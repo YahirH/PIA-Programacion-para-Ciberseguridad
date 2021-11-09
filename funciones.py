@@ -24,6 +24,7 @@ import base64
 import subprocess
 import sys
 from pathlib import Path
+import uuid
 
 # Formato de loggins
 log_format = (
@@ -294,7 +295,7 @@ def envioCorreos(rec):
 
     except FileNotFoundError:
         print("Archivo Reporte_imagenes.txt no encontrado")
-        logging.info("No se encontraron los reportes para el envío")
+        logging.warning("No se encontraron los reportes para el envío")
 
 
 def APImail(email, key):
@@ -308,6 +309,7 @@ def APImail(email, key):
     response = requests.request(
         "GET", url, headers=headers, params=querystring)
     print(response.text)
+    logging.info("Se realizó la petición a la API")
 
 
 def Fdqn():
@@ -315,9 +317,21 @@ def Fdqn():
     fqdn = socket.getfqdn()
     print("Fully qualified domain name of this computer is:")
     print(fqdn)
+    logging.info("Se entregó fdqn perfectamente")
 
 
 def ReglasPS():
+    logging.info("Se verán las reglas bloqueadas del firewall")
     fpath = Path("powershellpia.ps1").absolute()
     p = subprocess.Popen(["powershell.exe", fpath], stdout=sys.stdout)
     print(fpath)
+    logging.info("Se entregaron las reglas bloqueadas")
+    
+
+
+def identUU():
+    logging.info("Se busca obtener un UUID")
+    u=uuid.uuid1()
+    print("Obteniendo UUID")
+    print(u)
+    logging.info("Se entregó un UUID")
