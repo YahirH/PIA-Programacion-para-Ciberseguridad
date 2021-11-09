@@ -24,7 +24,7 @@ MODO DE USO:
                Documentation, donde es necesario el registro mencionado con anterioridad y un email dado que 
                pueda verficar.
                     
-   -op C     En esta opcion lo que se hace es enlazar python con PowerShell, para poder ver las reglas de Bloqueo 
+   -op C     En esta opcion lo que se hace es enlazar Python con PowerShell, para poder ver las reglas de Bloqueo 
                   del Firewall
      
    -op D     En esta opcion solo se obtiene el FQDN un nombre de dominio completo que incluye el nombre de la 
