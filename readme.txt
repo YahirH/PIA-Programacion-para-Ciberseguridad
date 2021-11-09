@@ -30,7 +30,8 @@ MODO DE USO:
    -op D     En esta opcion solo se obtiene el FQDN un nombre de dominio completo que incluye el nombre de la 
                computadora y el nombre de dominio  asociado a ese equipo. 
 
-   -op E     En esta última opcion lo que se hace es obtener un Universally Unique IDentifier. -saber mas sobre uuid                                                                          en:https://www.significados.com/uuid/
+   -op E     En esta última opcion lo que se hace es obtener un Universally Unique IDentifier. -conocer mas 
+               sobre uuid en : https://www.significados.com/uuid/
    
 
 
