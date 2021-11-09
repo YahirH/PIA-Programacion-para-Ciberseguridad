@@ -51,6 +51,8 @@ def main():
         funciones.ReglasPS()
     if x == 'D' or x == 'd':
         funciones.Fdqn()
+    if x == 'E' or x == 'e':
+        funciones.identUU()
 
 
 if __name__ == "__main__":
