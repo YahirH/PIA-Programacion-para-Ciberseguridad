@@ -29,6 +29,7 @@ MODO DE USO:
                nombre de dominio  asociado a ese equipo. 
 
    -op E     En esta última opcion lo que se hace es obtener un Universally Unique IDentifier. -saber mas sobre uuid                                                                          en:https://www.significados.com/uuid/
+   
 
 
 -Verifique si los parametros son correctos, ya que si estos no lo son el Programa puede Interrumpirse (Se añadira Logs de Errores, Interrupciones, etc en una archivo txt)
