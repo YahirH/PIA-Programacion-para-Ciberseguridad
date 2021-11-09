@@ -14,7 +14,8 @@ MODO DE USO:
      |----------------> https://rapidapi.com/Top-Rated/api/e-mail-check-invalid-or-disposable-domain/pricing
      Despues de registrarse seleccionar el plan GRATUITO y listo puede usar sin obstáculos nuestra herramienta.
      
- Tipo de Opciones:
+ En nuestra herramienta, otorgamos las siguientes opciones:
+ 
      -op A     En esta opcion se hace WebScrap a una url dada, se obtienen imágenes, Pdfs, se descargan en su debido folder, se obtienen sus metadatos, después los 
                     metadatos se codifican en base64 y se manda un correo con éstos reportes obtenidos hacia un correo dado.
                     
