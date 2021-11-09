@@ -2,7 +2,7 @@
 PIA - PROGRAMACIÓN PARA CIBERSEGURIDAD
 =======================================
 DESCRIPCIÓN DEL PROGRAMA:
--Serie de scripts para uso de WebScrapping, Obtención de Metadatos, Envió de Correos, Verificación de Correos, Escaneo de Puertos.
+-Serie de scripts para uso de WebScrapping, Obtención de Metadatos, Envió de Correos, Verificación de Correos, Ver reglas de Firewall bloqueadas, Validar un e-mail mediante uso de API.
 -Uso Automatizado sin Intervención entre Procesos.
 =======================================
 MODO DE USO:
