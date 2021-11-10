@@ -26,7 +26,6 @@ import sys
 from pathlib import Path
 import uuid
 import warnings
-import binascii
 
 # Formato de loggins
 log_format = (
