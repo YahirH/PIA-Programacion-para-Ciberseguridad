@@ -57,7 +57,7 @@ MODO DE USO:
 
    -op E     En esta última opcion lo que se hace es obtener un Universally Unique IDentifier y
                   con esta misma cambiar de nombre un archivo. -conocer mas 
-               s    obre uuid en : https://www.significados.com/uuid/
+                    sobre uuid en : https://www.significados.com/uuid/
                
                     En esta opcion no es necesario el uso de argumentos por lo tanto
                     puedes accesar solo con
