@@ -339,8 +339,10 @@ def identUU(arch):
     u=uuid.uuid4()
     print("Obteniendo UUID")
     p=str(u)
+    logging.info("Nombre para cambio: " + p)
     archivo=arch
     nombre_nuevo=p
     os.rename(archivo,nombre_nuevo)
     print("Se cambió el nombre del archivo deseado")
     logging.info("Cambió de nombre el archivo: " + arch)
+
