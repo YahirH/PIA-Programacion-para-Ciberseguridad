@@ -1,40 +1,28 @@
-import sys
-import subprocess
-import pkg_resources
-from PyPDF2 import PdfFileReader, PdfFileWriter
-import logging
-import os
-import sys
-import requests
-from lxml import html
-from bs4 import BeautifulSoup
-from PIL.ExifTags import TAGS, GPSTAGS
-from PIL import Image
-from decimal import Context
-import smtplib
-import ssl
-import getpass
-import pathlib
-import socket
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import base64
-import subprocess
-import sys
-from pathlib import Path
-import uuid
-import warnings
-
-# Formato de loggins
-log_format = (
-    '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s')
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format=log_format,
-    filename=('app.log'))
+import sys #pipreq
+import subprocess#pipreq
+import pkg_resources#pipreq
+from PyPDF2 import PdfFileReader, PdfFileWriter#Metadatos
+import logging#general
+import os #general
+import requests#Webscrap
+from lxml import html #webscrap
+from bs4 import BeautifulSoup#webscrap
+from PIL.ExifTags import TAGS, GPSTAGS #Metadatos
+from PIL import Image #Metadatos  
+import smtplib #envio de correos
+import ssl #API
+import getpass 
+import pathlib #General
+import socket #fqdn
+from email import encoders   #envio de correos
+from email.mime.base import MIMEBase #envio de correos
+from email.mime.text import MIMEText #envio de correos
+from email.mime.multipart import MIMEMultipart #envio de correos
+import base64 #Codificacion
+import subprocess #PS
+from pathlib import Path #General
+import uuid #identificador
+import warnings #Metadatos
 
 
 # Uso de pireq
@@ -144,45 +132,6 @@ class Scraping:
             exit()
 
 # bloque de obtencion de metadata
-# Formato a Extración de Datos
-def decode_gps_info(exif):  # exif =
-    gpsinfo = {}
-    if "GPSInfo" in exif:
-        # Parse geo references.
-        Nsec = exif["GPSInfo"][2][2]
-        Nmin = exif["GPSInfo"][2][1]
-        Ndeg = exif["GPSInfo"][2][0]
-        Wsec = exif["GPSInfo"][4][2]
-        Wmin = exif["GPSInfo"][4][1]
-        Wdeg = exif["GPSInfo"][4][0]
-        if exif["GPSInfo"][1] == "N":
-            Nmult = 1
-        else:
-            Nmult = -1
-        if exif["GPSInfo"][1] == "E":
-            Wmult = 1
-        else:
-            Wmult = -1
-        Lat = Nmult * (Ndeg + (Nmin + Nsec / 60.0) / 60.0)
-        Lng = Wmult * (Wdeg + (Wmin + Wsec / 60.0) / 60.0)
-        exif["GPSInfo"] = {"Lat": Lat, "Lng": Lng}
-        input()
-
-
-# image_path ruta de la imagen con nombre /carpeta/imagen.jpg
-def get_exif_metadata(image_path):
-    ret = {}
-    image = Image.open(image_path)
-    if hasattr(image, "_getexif"):
-        exifinfo = image._getexif()
-        if exifinfo is not None:
-            for tag, value in exifinfo.items():
-                decoded = TAGS.get(tag, tag)
-                ret[decoded] = value
-    decode_gps_info(ret)
-    return ret
-
-
 def printMeta():
     informe = open("Reporte_Imagenes.txt", "w+")
     logging.info(
@@ -210,6 +159,46 @@ def printMeta():
     informe.close()
     print("La obtencion de metadatos ha sido exitosa\n")
     print("listos en su respectivo archivo(Reporte_imagenes o Reporte_PDFs)\n ")
+
+#image_path ruta de la imagen con nombre /carpeta/imagen.jpg
+def get_exif_metadata(image_path):
+    ret = {}
+    image = Image.open(image_path)
+    if hasattr(image, "_getexif"):
+        exifinfo = image._getexif()
+        if exifinfo is not None:
+            for tag, value in exifinfo.items():
+                decoded = TAGS.get(tag, tag)
+                ret[decoded] = value
+    decode_gps_info(ret)
+    return ret
+
+# Formato a Extración de Datos
+def decode_gps_info(exif):  # exif =
+    gpsinfo = {}
+    if "GPSInfo" in exif:
+        # Parse geo references.
+        Nsec = exif["GPSInfo"][2][2]
+        Nmin = exif["GPSInfo"][2][1]
+        Ndeg = exif["GPSInfo"][2][0]
+        Wsec = exif["GPSInfo"][4][2]
+        Wmin = exif["GPSInfo"][4][1]
+        Wdeg = exif["GPSInfo"][4][0]
+        if exif["GPSInfo"][1] == "N":
+            Nmult = 1
+        else:
+            Nmult = -1
+        if exif["GPSInfo"][1] == "E":
+            Wmult = 1
+        else:
+            Wmult = -1
+        Lat = Nmult * (Ndeg + (Nmin + Nsec / 60.0) / 60.0)
+        Lng = Wmult * (Wdeg + (Wmin + Wsec / 60.0) / 60.0)
+        exif["GPSInfo"] = {"Lat": Lat, "Lng": Lng}
+        input()
+
+
+
 # PENDIENTE MetadataPDF
 
 
@@ -321,7 +310,7 @@ def Fdqn():
     fqdn = socket.getfqdn()
     print("Fully qualified domain name of this computer is:")
     print(fqdn)
-    logging.info("Se entregó fdqn perfectamente")
+    logging.info("Se entregó fqdn perfectamente")
 
 
 def ReglasPS():
@@ -345,4 +334,13 @@ def identUU(arch):
     os.rename(archivo,nombre_nuevo)
     print("Se cambió el nombre del archivo deseado")
     logging.info("Cambió de nombre el archivo: " + arch)
+
+# Formato de loggins
+log_format = (
+    '[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s')
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format=log_format,
+    filename=('app.log'))
 
