@@ -19,19 +19,49 @@ MODO DE USO:
    -op A     En esta opcion se hace WebScrap a una url dada, se obtienen imágenes, Pdfs, se descargan en su debido 
                folder, se obtienen sus metadatos, después los metadatos se codifican en base64 y se manda un correo     
                con éstos reportes obtenidos hacia un correo dado.
+               
+               En esta opción hacemos uso de los argumentos -u -rec
+               enseguida vemos un ejemplo de lo que puede recibir.
+              
+                    Ejemplo de uso
+                              main.py -op A  -u https://www.facebook.com/ -rec example@outlook.com
+                              
+                    Advertencia: Si no se ingresa el url completo no será posible avanzar con el proceso.
                     
    -op B     En esta opcion se hace una peticion a una API llamada E-mail Check Invalid or Disposable Domain API 
-               Documentation, donde es necesario el registro mencionado con anterioridad y un email dado que 
-               pueda verficar.
+               Documentation, donde es necesario el registro mencionado con anterioridad para obtener su APIKEY
+               y poder dar uso a esta API, además de un email dado que pueda verficar.
+               
+               
+              En esta opción hacemos uso de los argumentos -em -k
+               enseguida vemos un ejemplo de lo que puede recibir.
+               
+                    Ejemplo de uso
+                              main.py -em Example@gmail.com  -k XZXZXZXZXZXZXZXZXZXZ
                     
    -op C     En esta opcion lo que se hace es enlazar Python con PowerShell, para poder ver las reglas de Bloqueo 
                   del Firewall
+                  
+                  En esta opcion no es necesario el uso de argumentos por lo tanto
+                  puedes accesar solo con
+                  
+                              main.py -op C
      
    -op D     En esta opcion solo se obtiene el FQDN un nombre de dominio completo que incluye el nombre de la 
                computadora y el nombre de dominio  asociado a ese equipo. 
+               
+                    En esta opcion no es necesario el uso de argumentos por lo tanto
+                    puedes accesar solo con
+                  
+                              main.py -op D
 
    -op E     En esta última opcion lo que se hace es obtener un Universally Unique IDentifier. -conocer mas 
                sobre uuid en : https://www.significados.com/uuid/
+               
+                    En esta opcion no es necesario el uso de argumentos por lo tanto
+                    puedes accesar solo con
+                  
+                              main.py -op E
    
 
 
