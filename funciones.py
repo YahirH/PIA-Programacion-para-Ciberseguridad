@@ -25,6 +25,8 @@ import subprocess
 import sys
 from pathlib import Path
 import uuid
+import warnings
+import binascii
 
 # Formato de loggins
 log_format = (
@@ -98,11 +100,11 @@ class Scraping:
                     "Se descargo imagen con dirreccion al folder creado")
                 f.close()
 
-        except Exception as e:
-            print(e)
+        except:
             print("Error conexion con " + url)
             logging.warning("Hubo error de conexion con la url")
-            pass
+            print("Ingrese un url adecuado a la próxima")
+            exit()
 
     def scrapingPDF(self, url):
         print("\nObteniendo pdfs de la url:" + url)
@@ -131,16 +133,16 @@ class Scraping:
                 # descarga pdfs
                 r = requests.get(download)
                 f = open("pdfs/%s" % download.split("/")[-1], "wb")
-                logging.info("se agregó pdf encontrado")
+                logging.info(
+                    "Se descargo PDF con dirreccion al folder creado")
                 f.write(r.content)
                 f.close()
 
-        except Exception as e:
-            print(e)
+        except:
             print("Error conexion con " + url)
             logging.warning("Hubo error de conexion con la url")
-            pass
-
+            print("Ingrese un url adecuado a la próxima")
+            exit()
 
 # bloque de obtencion de metadata
 # Formato a Extración de Datos
@@ -208,7 +210,7 @@ def printMeta():
             informe.write("\n\n")
     informe.close()
     print("La obtencion de metadatos ha sido exitosa\n")
-    print("listos en archivo Reporte.txt")
+    print("listos en su respectivo archivo(Reporte_imagenes o Reporte_PDFs)\n ")
 # PENDIENTE MetadataPDF
 
 
@@ -216,14 +218,14 @@ def printPDF():
     os.chdir(pathlib.Path(__file__).parent.absolute())
     Informe = open("Reporte_PDFs.txt", "w+")
     logging.info(
-        "Se creo un informe con los metadatos obtenidos de las imagenes")
+        "Se creo un informe con los metadatos obtenidos de los PDF's")
     for dirpath, dirs, files in os.walk(".", topdown=False):
         for name in files:
             ext = name.lower().rsplit(".", 1)[-1]  # archivo.nombre.algo.pdf
             if ext in ["pdf"]:
                 pdfFile = PdfFileReader(
-                    open(dirpath + os.path.sep + name, "rb"))
-
+                    open(dirpath + os.path.sep + name, "rb",))
+                warnings.simplefilter("ignore")
                 docInfo = pdfFile.documentInfo
                 Informe.write("Archivo: " + name.lower())
                 Informe.write("\n")
@@ -242,16 +244,19 @@ def printPDF():
 
 
 def encode():
+    print("Se codificaran los Reportes obtenidos\n")
     os.chdir(pathlib.Path(__file__).parent.absolute())
     base64.encode(
         open("Reporte_Imagenes.txt", "rb"),
         open("ReporteB64_Imagenes.txt", "wb"))
     base64.encode(open("Reporte_PDFs.txt", "rb"),
                   open("ReporteB64_PDFs.txt", "wb"))
+    logging.info(
+        "Se codificaron los reportes en b64")
 
 
 def envioCorreos(rec):
-    print("Se hará un envio de correo con los reportes obtenidos")
+    print("Se hará un envio de correo con la codificación de los reportes obtenidos en base 64")
     try:
         logging.info("Se enviara un correo con los reportes obtenidos")
         body = "Reportes del Web Scraping"
@@ -329,9 +334,14 @@ def ReglasPS():
     
 
 
-def identUU():
-    logging.info("Se busca obtener un UUID")
-    u=uuid.uuid1()
+def identUU(arch):
+    os.chdir(pathlib.Path(__file__).parent.absolute())
+    logging.info("Se busca obtener un UUID para cambio de nombre del archivo")
+    u=uuid.uuid4()
     print("Obteniendo UUID")
-    print(u)
-    logging.info("Se entregó un UUID")
+    p=str(u)
+    archivo=arch
+    nombre_nuevo=p
+    os.rename(archivo,nombre_nuevo)
+    print("Se cambió el nombre del archivo deseado")
+    logging.info("Cambió de nombre el archivo: " + arch)
