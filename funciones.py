@@ -248,7 +248,8 @@ def envioCorreos(rec):
     try:
         logging.info("Se enviara un correo con los reportes obtenidos")
         body = "Reportes del Web Scraping"
-        sender_email = "pc2021pia@gmail.com"
+        # sender_email ="emailemisor" 
+        sender_email =""
         receiver_email = rec
 
         msg = MIMEMultipart()
@@ -280,7 +281,8 @@ def envioCorreos(rec):
             with smtplib.SMTP("smtp.gmail.com", 587) as smtpObj:
                 smtpObj.ehlo()
                 smtpObj.starttls()
-                smtpObj.login("pc2021pia@gmail.com", "PC06102021")
+                # smtpObj.login("emailemisor", "emailreceptor")
+                smtpObj.login("", "")
                 smtpObj.sendmail(sender_email, receiver_email, msg.as_string())
                 logging.info("Se envió el correo con los reportes obtenidos")
         except Exception as e:
