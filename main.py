@@ -23,7 +23,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser(description='Usamos una API para el pia')
     parser.add_argument("-op", "--option", dest="op", required=True,
-                        help='Opción A =WebScrapping/Obtención de Metadatos/Envio de Correo con resultado. Opción B =API de revisión de dirección de Correo Opción C = Ver Reglas de Bloqueo del Firewall Opción D= Obtener el nombre de Dominio Completo de mi equipo, Opción E=Obtener un Universally Unique IDentifier(UUID) y cambiar nombre a un archivo con la misma')
+                        help='Opción A =WebScrapping/Obtención de Metadatos/Envio de Correo con resultado'
+                        'Opción B =API de revisión de dirección de Correo'
+                        'Opción C = Ver Reglas de Bloqueo del Firewall'
+                        'Opción D= Obtener el nombre de Dominio Completo de mi equipo'
+                        'Opción E=Obtener un Universally Unique IDentifier(UUID) y cambiar nombre a un archivo con la misma')
     parser.add_argument("-u", "--url", dest='url',
                         help="Enter an url to webscrap")
     parser.add_argument("-rec", "--receiver", dest='rec', type=str,
